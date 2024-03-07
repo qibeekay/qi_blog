@@ -67,7 +67,7 @@ const Navbar = () => {
 							<Link
 								href={'/'}
 								className='font-bold font-logo text-xl sm:text-3xl dark:text-purple-500'>
-								Qi's
+								Qi&apos;s
 								<span className='text-purple-500 dark:text-light'>_Blog</span>.
 							</Link>
 						</div>
