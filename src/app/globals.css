@@ -1,33 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Madimi+One&family=Namdhinggo:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@property --offset {
+	syntax: '<length>';
+	inherits: false;
+	initial-value: 1px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.hover-underline {
+	position: relative;
+	display: inline-block;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.hover-underline::before {
+	content: '';
+	position: absolute;
+	bottom: 2px; /* adjust this value to position the underline */
+	left: 0;
+	width: 0;
+	height: 2px; /* adjust this value to control the underline thickness */
+	background-color: #0c0c0c; /* adjust this value to set the underline color */
+	transition: width 0.3s ease-in-out; /* adjust the transition speed if desired */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.hover-underline:hover::before {
+	width: 100%;
+}
+
+.a {
+	color: inherit;
+	text-underline-offset: var(--offset, 3px);
+	text-decoration: underline 2px white;
+	transition: --offset 400ms, text-decoration-color 400ms;
+}
+
+.a:hover,
+.a:focus {
+	--offset: 6px;
+	text-decoration-color: #7b00d3;
+	/* color: #4b6bfb; */
+}
+
+@supports not (background: paint(something)) {
+	.a {
+		transition: text-underline-offset 400ms, text-decoration-color 400ms;
+	}
+
+	.a:hover,
+	.a:focus {
+		text-underline-offset: 0.4em;
+	}
+}
+
+.form-container {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.5s ease-in-out;
+}
+
+.form-container.expanded {
+	max-height: 500px; /* Adjust the height as needed */
 }
